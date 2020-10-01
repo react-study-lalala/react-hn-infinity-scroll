@@ -1,14 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import useHackerNewsStoires from "./hooks/useHackerNewsStories";
 import useInfinityScroll from "./hooks/useInfinityScroll";
 
 function App() {
-  const [page, setPage] = useState(1);
-  const { error, isLoading, items } = useHackerNewsStoires({ page });
-  function fetchMore() {
-    if (isLoading) return;
-    setPage((page) => page + 1);
-  }
+  const { error, isLoading, items, fetchMore } = useHackerNewsStoires();
 
   useInfinityScroll({
     action: fetchMore,

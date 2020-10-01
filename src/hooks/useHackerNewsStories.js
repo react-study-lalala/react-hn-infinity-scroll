@@ -2,7 +2,8 @@ import { useState, useEffect, useCallback } from "react";
 
 const LIMIT = 15;
 
-export default function useHackerNewsStoires({ page }) {
+export default function useHackerNewsStoires() {
+  const [page, setPage] = useState(1);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [items, setItems] = useState([]);
@@ -34,6 +35,11 @@ export default function useHackerNewsStoires({ page }) {
     }
   }, [page]);
 
+  function fetchMore() {
+    if (isLoading) return;
+    setPage((page) => page + 1);
+  }
+
   useEffect(() => {
     fetchAPI();
   }, [fetchAPI]);
@@ -42,5 +48,6 @@ export default function useHackerNewsStoires({ page }) {
     error,
     isLoading,
     items,
+    fetchMore,
   };
 }
